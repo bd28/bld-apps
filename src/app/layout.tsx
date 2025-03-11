@@ -10,16 +10,58 @@ import { Analytics } from "@vercel/analytics/react";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BLD Apps | Software Development Solutions",
+  title: {
+    default: "BLD Apps | Software Development Solutions",
+    template: "%s | BLD Apps",
+  },
   description: "Building tomorrow's software solutions today. Custom software development services for web and mobile applications.",
+  keywords: ["software development", "web development", "mobile apps", "custom software", "Houston", "Texas"],
+  authors: [{ name: "BLD Apps" }],
+  creator: "BLD Apps",
+  publisher: "BLD Apps",
+  formatDetection: {
+    email: false,
+    telephone: false,
+    address: false,
+  },
+  metadataBase: new URL("https://bldapps.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://bldapps.com",
+    title: "BLD Apps | Software Development Solutions",
+    description: "Building tomorrow's software solutions today. Custom software development services for web and mobile applications.",
+    siteName: "BLD Apps",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BLD Apps | Software Development Solutions",
+    description: "Building tomorrow's software solutions today. Custom software development services for web and mobile applications.",
+    creator: "@bldapps",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({

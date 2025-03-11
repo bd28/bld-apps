@@ -107,14 +107,14 @@ bld-apps/
   > _Note: Removed email address from contact page as requested to prevent spam._
 - [x] Refine responsive design
 - [x] Implement SEO optimization
-- [ ] Add animations and transitions for better UX
-  > _Note: Could add subtle animations for page transitions and hover effects._
+- [x] Add animations and transitions for better UX
+  > _Note: Added page transitions using the PageTransition component and hover animations for interactive elements._
 
 ### Phase 5: Legal Pages & Content
 - [x] Create Privacy Policy page
 - [x] Create Terms of Service page
-- [ ] Review and update content for accuracy
-  > _Note: Consider reviewing all page content for consistency and accuracy._
+- [x] Review and update content for accuracy
+  > _Note: All page content has been reviewed for consistency and accuracy._
 
 ### Phase 6: Testing & Deployment
 - [x] Test contact form functionality
@@ -122,11 +122,11 @@ bld-apps/
 - [x] Test across different devices and browsers
   > _Note: Basic testing completed, site is responsive on various screen sizes._
 - [ ] Optimize performance
-  > _Note: Consider image optimization and code splitting for better performance._
+  > _Note: Need to focus on image optimization, code splitting, and running Lighthouse audits._
 - [x] Deploy to Vercel
   > _Note: Successfully deployed to Vercel and linked to GitHub repository._
-- [ ] Set up custom domain (bldapps.com)
-  > _Note: Will need to configure DNS settings for the domain._
+- [x] Set up custom domain (bldapps.com)
+  > _Note: DNS settings configured and SSL certificate set up through Vercel._
 - [ ] Final review and adjustments
   > _Note: Conduct a comprehensive review before final launch._
 
@@ -178,28 +178,24 @@ The contact form:
 1. **Performance Optimization**
    - Optimize images using Next.js Image component
    - Run Lighthouse audits and address any issues
+   - Implement code splitting for better performance
 
-2. **Custom Domain Setup**
-   - Configure DNS settings for bldapps.com
-   - Set up SSL certificate through Vercel
+2. **Rate Limiting**
+   - Implement rate limiting for form submissions to prevent abuse
 
-3. **Animations & Transitions**
-   - Add subtle page transitions
-   - Implement hover animations for interactive elements
+3. **Final Review**
+   - Conduct a comprehensive review before final launch
+   - Test all functionality one last time
+   - Ensure all content is accurate and up-to-date
 
 ## Future Enhancements
 
-1. **Content Improvements**
-   - Review and update all page content for accuracy and consistency
-   - Add more detailed project descriptions and case studies
-
-2. **Additional Features**
+1. **Additional Features**
    - Blog section for sharing insights and updates
    - Newsletter subscription option
    - Integration with analytics tools
-   - Rate limiting for form submissions
 
-3. **Maintenance Plan**
+2. **Maintenance Plan**
    - Regular updates to dependencies
    - Content refreshes
    - Performance monitoring 

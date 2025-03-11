@@ -2,65 +2,56 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // In-memory store for rate limiting
-// In a production environment, you would use Redis or another distributed store
-const ipRequestCounts = new Map<string, { count: number; resetTime: number }>();
-
-// Rate limit configuration
+// In production, you would use Redis or another persistent store
+const ipRequestCounts = new Map<string, { count: number; timestamp: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute in milliseconds
 const MAX_REQUESTS_PER_WINDOW = 5; // 5 requests per minute
 
 export function middleware(request: NextRequest) {
-  // Only apply rate limiting to API routes
-  if (!request.nextUrl.pathname.startsWith('/api')) {
-    return NextResponse.next();
+  // Only apply rate limiting to contact form endpoints
+  if (
+    request.nextUrl.pathname === '/api/contact' ||
+    request.nextUrl.pathname.startsWith('/api/contact/') ||
+    request.method === 'POST'
+  ) {
+    // Get the IP address from the request headers
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : 'unknown';
+    const now = Date.now();
+    const requestData = ipRequestCounts.get(ip);
+
+    // If this IP hasn't been seen before or the window has expired, reset the counter
+    if (!requestData || now - requestData.timestamp > RATE_LIMIT_WINDOW) {
+      ipRequestCounts.set(ip, { count: 1, timestamp: now });
+      return NextResponse.next();
+    }
+
+    // If the IP has made too many requests within the window, block the request
+    if (requestData.count >= MAX_REQUESTS_PER_WINDOW) {
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: 'Rate limit exceeded. Please try again later.',
+        }),
+        {
+          status: 429,
+          headers: {
+            'Content-Type': 'application/json',
+            'Retry-After': `${Math.ceil((requestData.timestamp + RATE_LIMIT_WINDOW - now) / 1000)}`,
+          },
+        }
+      );
+    }
+
+    // Otherwise, increment the counter and allow the request
+    requestData.count++;
+    ipRequestCounts.set(ip, requestData);
   }
 
-  // Get the IP address from the request
-  // Use X-Forwarded-For header or fallback to a default value
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  const ip = forwardedFor ? forwardedFor.split(',')[0].trim() : 'unknown';
-  
-  // Get the current time
-  const now = Date.now();
-  
-  // Get the request count for this IP
-  const ipData = ipRequestCounts.get(ip);
-  
-  // If this is the first request or the window has expired, reset the count
-  if (!ipData || now > ipData.resetTime) {
-    ipRequestCounts.set(ip, {
-      count: 1,
-      resetTime: now + RATE_LIMIT_WINDOW,
-    });
-    return NextResponse.next();
-  }
-  
-  // If the IP has exceeded the rate limit, return a 429 Too Many Requests response
-  if (ipData.count >= MAX_REQUESTS_PER_WINDOW) {
-    return new NextResponse(
-      JSON.stringify({
-        success: false,
-        message: 'Too many requests, please try again later.',
-      }),
-      {
-        status: 429,
-        headers: {
-          'Content-Type': 'application/json',
-          'Retry-After': `${Math.ceil((ipData.resetTime - now) / 1000)}`,
-        },
-      }
-    );
-  }
-  
-  // Increment the request count
-  ipData.count += 1;
-  ipRequestCounts.set(ip, ipData);
-  
-  // Allow the request to proceed
   return NextResponse.next();
 }
 
-// Only apply this middleware to API routes
+// Only run the middleware on API routes
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*'],
 }; 

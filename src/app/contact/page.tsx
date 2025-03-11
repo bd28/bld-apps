@@ -1,7 +1,41 @@
 import { Metadata } from "next";
-import { ContactForm } from "./ContactForm";
 import { Building, Phone } from "lucide-react";
 import { PageTransition } from "@/components/PageTransition";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// Dynamically import the ContactForm component
+const ContactForm = dynamic(() => import("./ContactForm").then(mod => mod.ContactForm), {
+  loading: () => <ContactFormSkeleton />
+});
+
+// Skeleton loader for the form
+function ContactFormSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-10 w-full" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-32 w-full" />
+      </div>
+      <Skeleton className="h-10 w-full" />
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Contact | BLD Apps",
@@ -71,7 +105,9 @@ export default function ContactPage() {
 
           <div className="bg-card rounded-lg p-8 shadow-sm">
             <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-            <ContactForm />
+            <Suspense fallback={<ContactFormSkeleton />}>
+              <ContactForm />
+            </Suspense>
           </div>
         </div>
       </div>
