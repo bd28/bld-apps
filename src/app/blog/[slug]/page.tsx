@@ -9,18 +9,21 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-interface BlogPostPageProps {
-  params: {
-    slug: string;
-  };
-}
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = getBlogPostBySlug(params.slug);
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Params;
+  searchParams: SearchParams;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
   
   if (!post) {
     return {
-      title: "Blog Post Not Found | BLD Apps",
+      title: "Post Not Found",
       description: "The requested blog post could not be found.",
     };
   }
@@ -28,11 +31,30 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   return {
     title: `${post.title} | BLD Apps Blog`,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostBySlug(params.slug);
+export default async function BlogPostPage({ 
+  params 
+}: { 
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
   
   if (!post) {
     notFound();
