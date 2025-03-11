@@ -8,6 +8,28 @@ const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute in milliseconds
 const MAX_REQUESTS_PER_WINDOW = 5; // 5 requests per minute
 
 export function middleware(request: NextRequest) {
+  // Add cache control headers for static assets
+  const { pathname } = request.nextUrl;
+  
+  // Apply caching headers to static assets
+  if (
+    pathname.includes('/_next/') || 
+    pathname.includes('/images/') ||
+    pathname.endsWith('.jpg') ||
+    pathname.endsWith('.png') ||
+    pathname.endsWith('.svg') ||
+    pathname.endsWith('.webp') ||
+    pathname.endsWith('.avif') ||
+    pathname.endsWith('.ico')
+  ) {
+    const response = NextResponse.next();
+    response.headers.set(
+      'Cache-Control',
+      'public, max-age=31536000, immutable'
+    );
+    return response;
+  }
+
   // Only apply rate limiting to contact form endpoints
   if (
     request.nextUrl.pathname === '/api/contact' ||
@@ -51,7 +73,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Only run the middleware on API routes
+// Only run the middleware on API routes and static assets
 export const config = {
-  matcher: ['/api/:path*'],
+  matcher: ['/api/:path*', '/_next/image/:path*', '/images/:path*'],
 }; 
