@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Code, Smartphone, Globe, Database, Settings, LifeBuoy, Zap, Cloud } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CTA } from "@/components/sections/CTA";
+import { PageTransition } from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Services | BLD Apps",
@@ -109,7 +110,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <>
+    <PageTransition>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">Our Services</h1>
@@ -150,6 +151,6 @@ export default function ServicesPage() {
         </div>
       </div>
       <CTA />
-    </>
+    </PageTransition>
   );
 } 

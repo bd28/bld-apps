@@ -29,7 +29,8 @@
 - [x] **React Hook Form** - For form handling and validation
 
 ### Additional Tools
-- [ ] **Vercel** - For deployment and hosting
+- [x] **Vercel** - For deployment and hosting
+  > _Note: Successfully deployed to Vercel at https://vercel.com/bd28s-projects/bld-apps_
 - [x] **Resend** - For email handling (using your API key)
 - [x] **ESLint/Prettier** - For code quality and formatting
 - [x] **React Icons** - For additional icons not covered by shadcn/ui
@@ -118,12 +119,12 @@ bld-apps/
 ### Phase 6: Testing & Deployment
 - [x] Test contact form functionality
   > _Note: Contact form is now working correctly with Resend._
-- [ ] Test across different devices and browsers
-  > _Note: Need to verify responsive design on various screen sizes._
+- [x] Test across different devices and browsers
+  > _Note: Basic testing completed, site is responsive on various screen sizes._
 - [ ] Optimize performance
   > _Note: Consider image optimization and code splitting for better performance._
-- [ ] Deploy to Vercel
-  > _Note: Need to set up Vercel deployment with environment variables._
+- [x] Deploy to Vercel
+  > _Note: Successfully deployed to Vercel and linked to GitHub repository._
 - [ ] Set up custom domain (bldapps.com)
   > _Note: Will need to configure DNS settings for the domain._
 - [ ] Final review and adjustments
@@ -172,25 +173,33 @@ The contact form:
 - [x] Clean, minimalist design with ample white space
 - [x] Consistent padding and margins
 
-## Next Steps
+## Current Priority Tasks
 
-1. **Animations & Transitions**
-   - Add subtle page transitions
-   - Implement hover animations for interactive elements
-   - Consider adding scroll animations for sections
-
-2. **Performance Optimization**
+1. **Performance Optimization**
    - Optimize images using Next.js Image component
-   - Implement code splitting for better load times
    - Run Lighthouse audits and address any issues
 
-3. **Deployment**
-   - Set up Vercel project
-   - Configure environment variables for Resend API key
-   - Set up custom domain and SSL
+2. **Custom Domain Setup**
+   - Configure DNS settings for bldapps.com
+   - Set up SSL certificate through Vercel
 
-4. **Additional Features to Consider**
+3. **Animations & Transitions**
+   - Add subtle page transitions
+   - Implement hover animations for interactive elements
+
+## Future Enhancements
+
+1. **Content Improvements**
+   - Review and update all page content for accuracy and consistency
+   - Add more detailed project descriptions and case studies
+
+2. **Additional Features**
    - Blog section for sharing insights and updates
-   - Dark mode toggle (already implemented)
    - Newsletter subscription option
-   - Integration with analytics tools 
+   - Integration with analytics tools
+   - Rate limiting for form submissions
+
+3. **Maintenance Plan**
+   - Regular updates to dependencies
+   - Content refreshes
+   - Performance monitoring 

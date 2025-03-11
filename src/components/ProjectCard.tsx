@@ -26,7 +26,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          quality={85}
+          loading="lazy"
+          className="object-cover transition-transform duration-300 hover:scale-105"
         />
       </div>
       <CardHeader>
