@@ -121,8 +121,8 @@ bld-apps/
   > _Note: Contact form is now working correctly with Resend._
 - [x] Test across different devices and browsers
   > _Note: Basic testing completed, site is responsive on various screen sizes._
-- [ ] Optimize performance
-  > _Note: Need to focus on image optimization, code splitting, and running Lighthouse audits._
+- [x] Optimize performance
+  > _Note: Implemented code splitting with dynamic imports, optimized images with Next.js Image component, added font display swap, enhanced metadata, and configured Next.js for better performance._
 - [x] Deploy to Vercel
   > _Note: Successfully deployed to Vercel and linked to GitHub repository._
 - [x] Set up custom domain (bldapps.com)
@@ -150,8 +150,8 @@ The contact form:
 ## Security Considerations
 - [x] The Resend API key is stored as an environment variable
 - [x] Form submissions are validated on both client and server
-- [ ] Implement rate limiting to prevent abuse
-  > _Note: Consider adding rate limiting middleware to prevent form spam._
+- [x] Implement rate limiting to prevent abuse
+  > _Note: Added middleware to implement rate limiting for API routes, particularly for the contact form endpoints._
 - [x] CSRF protection is enabled (built into Next.js)
 
 ## Design Considerations
@@ -175,15 +175,7 @@ The contact form:
 
 ## Current Priority Tasks
 
-1. **Performance Optimization**
-   - Optimize images using Next.js Image component
-   - Run Lighthouse audits and address any issues
-   - Implement code splitting for better performance
-
-2. **Rate Limiting**
-   - Implement rate limiting for form submissions to prevent abuse
-
-3. **Final Review**
+1. **Final Review**
    - Conduct a comprehensive review before final launch
    - Test all functionality one last time
    - Ensure all content is accurate and up-to-date
